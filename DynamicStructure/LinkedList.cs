@@ -95,16 +95,6 @@ namespace DynamicStructure
             count++;
         }
 
-        public IEnumerator<Node> GetEnumerator()
-        {
-            var node = head;
-            do
-            {
-                yield return node;
-                node = node.next;
-            } while (node != head);
-        }
-
         public LinkedList()
         {
 
