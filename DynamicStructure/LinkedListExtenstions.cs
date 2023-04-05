@@ -11,11 +11,11 @@ namespace DynamicStructure
         public static IEnumerable<Node> EnumeratesNode(this LinkedList list)
         {
             var node = list.head;
-            while(node != null)
+            do
             {
                 yield return node;
                 node = node.next;
-            }
+            } while (node != list.head);
         }
     }
 }
