@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace DynamicStructure
+﻿namespace DynamicStructure
 {
     public class LinkedList
     {
@@ -45,17 +43,12 @@ namespace DynamicStructure
         {
             if(head == null)
             {
-                throw new Exception();
+                throw new Exception("head is null");
             }
 
             var node = head;
             do
             {
-                if (node == null)
-                {
-                    throw new Exception();
-                }
-
                 if (node.item == item)
                 {
                     return node;
@@ -98,6 +91,14 @@ namespace DynamicStructure
         public LinkedList()
         {
 
+        }
+
+        internal LinkedList(IEnumerable<Node> source)
+        {
+            foreach(var node in source)
+            {
+                AddLast(node.item);
+            }
         }
     }
 }
