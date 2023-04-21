@@ -25,5 +25,11 @@ namespace DynamicStructure
         {
             this.item = item;
         }
+
+        override
+        public string ToString()
+        {
+            return item;
+        }
     }
 }
