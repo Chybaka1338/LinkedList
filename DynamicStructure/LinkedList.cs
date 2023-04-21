@@ -4,22 +4,24 @@
     {
         internal Node head;
 
+        internal int count;
+
         public Node First => head;
 
         public Node Last => head.prev;
 
-        internal int count;
+        public int Count => count;
 
         public Node AddFirst(string item)
         {
             var node = new Node(item);
             if (head == null)
             {
-                InsertInEmptyList(node);
+                InternalInsertNodeToEmptyList(node);
             }
             else
             {
-                InsertNodeBefore(head, node);
+                InternalInsertNodeBefore(head, node);
                 head = node;
             }
             return node;
@@ -30,17 +32,22 @@
             var node = new Node(item);
             if (head == null)
             {
-                InsertInEmptyList(node);
+                InternalInsertNodeToEmptyList(node);
             }
             else
             {
-                InsertNodeBefore(head, node);
+                InternalInsertNodeBefore(head, node);
             }
             return node;
         }
 
         public Node Find(string item)
         {
+            if(count == 0)
+            {
+                return null;
+            }
+
             if(head == null)
             {
                 throw new Exception("head is null");
@@ -60,25 +67,34 @@
 
         public void Delete(string item)
         {
-            var node = Find(item);
+            Node node;
+            if((node = Find(item)) == null)
+            {
+                return;
+            }
+
+            if (count == 1)
+            {
+                head = null;
+                count--;
+                return;
+            }
+
             node.prev.next = node.next;
             node.next.prev = node.prev;
-            if(node == head)
-            {
-                head = node.next;
-            }
+            if (node == head) head = node.next;
             count--;
         }
 
-        private void InsertInEmptyList(Node newNode)
+        private void InternalInsertNodeToEmptyList(Node newNode)
         {
+            newNode.next = newNode;
+            newNode.prev = newNode;
             head = newNode;
-            head.prev = newNode;
-            head.next = newNode;
             count++;
         }
 
-        private void InsertNodeBefore(Node node, Node newNode)
+        private void InternalInsertNodeBefore(Node node, Node newNode)
         {
             newNode.next = node;
             newNode.prev = node.prev;
